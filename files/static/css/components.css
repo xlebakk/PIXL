@@ -1,0 +1,143 @@
+/* Logo & Header elements */
+.logo { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: -1px; color: var(--acc); }
+.logo span { color: var(--fg2); font-weight: 300; }
+.hline { flex: 1; height: 1px; background: var(--line); }
+.htag { font-size: 10px; color: var(--fg3); letter-spacing: 0.12em; text-transform: uppercase; }
+#status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--fg3); transition: background 0.3s; }
+#status-dot.ready { background: var(--acc); }
+#status-dot.busy { background: var(--acc2); animation: pulse 0.6s ease infinite alternate; }
+@keyframes pulse { to { opacity: 0.3; } }
+
+/* Sidebar blocks */
+.blk { padding: 20px 24px; border-bottom: 1px solid var(--line); }
+.blk-label { font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--fg3); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+.blk-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+/* Dropzone */
+.drop-target { border: 1px solid var(--line2); padding: 28px 16px; text-align: center; cursor: pointer; position: relative; transition: border-color 0.2s, background 0.2s; background: var(--bg2); }
+.drop-target:hover, .drop-target.over { border-color: var(--acc); background: #111108; }
+.drop-target input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.drop-icon { font-family: var(--display); font-size: 32px; font-weight: 700; color: var(--line2); display: block; margin-bottom: 10px; transition: color 0.2s; }
+.drop-target:hover .drop-icon, .drop-target.over .drop-icon { color: var(--acc); }
+.drop-target p { color: var(--fg2); font-size: 12px; line-height: 1.6; }
+.file-info { margin-top: 12px; padding: 10px 12px; background: var(--bg3); border-left: 3px solid var(--acc); display: none; }
+.file-info.show { display: block; }
+.file-name { color: var(--fg); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-meta { color: var(--fg3); font-size: 11px; margin-top: 3px; }
+
+/* Commands */
+.cmd-row { display: flex; gap: 0; }
+.cmd-input { flex: 1; background: var(--bg2); border: 1px solid var(--line2); border-right: none; color: var(--fg); font-family: var(--mono); font-size: 13px; padding: 10px 14px; outline: none; transition: border-color 0.15s; }
+.cmd-input:focus { border-color: var(--acc); }
+
+/* Buttons Global & Hover */
+.run-btn, .ghost-btn, .chip {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    transition: transform .2s ease, box-shadow .2s ease, color .2s ease, border-color .2s ease;
+    border: none;
+}
+
+/* Специфические размеры кнопок (возвращены прежние параметры) */
+.run-btn { 
+    background: linear-gradient(90deg, #c9ff00, #eaff4b, #ffd900, #eaff4b, #c9ff00);
+    background-size: 300% 100%;
+    background-position: 0% 50%;
+    color: #000;
+    font-family: var(--display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0 18px;
+}
+
+.ghost-btn { 
+    background: transparent; 
+    border: 1px solid var(--line2); 
+    color: var(--fg2); 
+    font-family: var(--mono); 
+    font-size: 11px; 
+    padding: 7px 0; 
+    text-align: center; 
+    text-transform: uppercase; 
+    letter-spacing: 0.06em; 
+}
+
+.chip { 
+    background: var(--bg2); 
+    border: 1px solid var(--line); 
+    color: var(--fg2); 
+    font-family: var(--mono); 
+    font-size: 11px; 
+    padding: 7px 10px; 
+    text-align: left; 
+    line-height: 1.3; 
+}
+
+/* Логика наведения (градиент под текстом) */
+.run-btn::before, .ghost-btn::before, .chip::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #c9ff00, #eeff55, #ffd900, #eeff55, #c9ff00);
+    background-size: 300% 100%;
+    opacity: 0;
+    transition: opacity .2s ease;
+    z-index: -1;
+}
+
+.run-btn:hover, .ghost-btn:hover, .chip:hover {
+    color: #000 !important;
+    border-color: #eaff4b;
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 0 16px rgba(201,255,0,.25);
+}
+
+.run-btn:hover::before, .ghost-btn:hover::before, .chip:hover::before {
+    opacity: 1;
+    animation: pixlGradient 1.5s linear infinite;
+}
+
+.run-btn *, .ghost-btn *, .chip * {
+    color: inherit;
+    pointer-events: none;
+    z-index: 2;
+}
+
+@keyframes pixlGradient {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+}
+
+.action-row { display: flex; gap: 8px; margin-top: 8px; }
+
+/* Chips Grid */
+.chips-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+
+/* Logs */
+.log-feed { display: flex; flex-direction: column; gap: 0; }
+.log-entry { padding: 8px 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 16px 1fr; gap: 10px; align-items: start; }
+.log-tick { font-size: 12px; margin-top: 1px; }
+.log-tick.ok { color: var(--acc); }
+.log-tick.err { color: var(--acc2); }
+.log-tick.sys { color: var(--fg3); }
+.log-text { color: var(--fg2); line-height: 1.4; }
+.log-text b { color: var(--fg); font-weight: 400; }
+.log-code { color: var(--fg3); font-size: 11px; margin-top: 2px; display: block; }
+
+/* Canvas & Overlays */
+#preview-canvas { display: block; max-width: calc(100vw - 420px); max-height: calc(100vh - 100px); image-rendering: pixelated; }
+.corner { position: absolute; width: 16px; height: 16px; }
+.corner.tl { top: -1px; left: -1px; border-top: 2px solid var(--acc); border-left: 2px solid var(--acc); }
+.corner.tr { top: -1px; right: -1px; border-top: 2px solid var(--acc); border-right: 2px solid var(--acc); }
+.corner.bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--acc); border-left: 2px solid var(--acc); }
+.corner.br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--acc); border-right: 2px solid var(--acc); }
+.img-badge { position: absolute; bottom: -28px; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 10px; color: var(--fg3); letter-spacing: 0.08em; }
+.processing-overlay { display: none; position: absolute; inset: 0; background: rgba(12,12,12,0.85); z-index: 10; align-items: center; justify-content: center; flex-direction: column; gap: 16px; }
+.processing-overlay.show { display: flex; }
+.proc-label { font-family: var(--display); font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--acc); }
+.proc-bar-wrap { width: 160px; height: 2px; background: var(--line2); }
+.proc-bar { height: 2px; background: var(--acc); width: 0%; transition: width 0.4s; }

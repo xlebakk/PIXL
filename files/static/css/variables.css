@@ -1,0 +1,14 @@
+:root {
+  --bg:     #0c0c0c;
+  --bg2:    #141414;
+  --bg3:    #1c1c1c;
+  --line:   #2a2a2a;
+  --line2:  #3a3a3a;
+  --fg:     #f0ede6;
+  --fg2:    #888;
+  --fg3:    #444;
+  --acc:    #e8ff47;
+  --acc2:   #ff6b35;
+  --mono:   'Space Mono', monospace;
+  --display: 'Unbounded', sans-serif;
+}
